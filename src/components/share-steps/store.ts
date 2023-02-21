@@ -16,7 +16,7 @@ export class ShareStepsStore<Data = Record<string, unknown>> {
         this.store.delete(key)
     }
 
-    destroy = () => {
+    clearData = () => {
         this.store.clear()
     }
 

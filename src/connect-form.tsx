@@ -1,19 +1,40 @@
-import { Form, Input } from '@ones-design/core';
-import StepsForm from './components/steps-form'
+import { Form, Input, Button } from '@ones-design/core';
+import { useStepActions } from './components/share-steps';
 
-export function ConnectStepForm() {
-    return <StepsForm.StepForm
-        name='connect'
-        description='你好'
-        onFinish={async values => {
-            console.log(values);
-            return true
+export function ConnectConfluence() {
+    const { nextStep, savaData } = useStepActions()
+    //
+    return <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        onFinish={(values) => {
+            savaData('first', values)
+            nextStep()
         }}
+        autoComplete="off"
     >
-        <Form.Item label="username" name={'username'} rules={[{
-            required: true
-        }]}>
-            <Input placeholder='第一个input' />
+        <Form.Item
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+            <Input />
         </Form.Item>
-    </StepsForm.StepForm>
+
+        <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+            <Input.Password />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+                Submit
+            </Button>
+        </Form.Item>
+    </Form>
 }

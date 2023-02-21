@@ -1,8 +1,7 @@
 import { cloneElement, ComponentProps, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import cls from 'classnames'
 import { ShareStepsStore } from './store'
-import { shareStoreContext } from './context/share-store'
-import { shareStepsContext } from './context/share-steps'
+import { shareStepsContext } from './context/steps'
 import { ShareStepProps, ShareStep } from './step';
 import { Steps } from '@ones-design/core';
 import { useStep } from './hooks/use-step';
@@ -13,9 +12,6 @@ import './index.scss'
 export { ShareStep }
 export * from './hooks'
 
-const shareStore = {
-    store: new ShareStepsStore()
-};
 
 const initialFormMap = new Map<string, ShareStepProps>();
 
@@ -44,9 +40,9 @@ export function ShareSteps(props: PropsWithChildren<ShareStepsProps>) {
         stepMapRef.current.set(name, stepProp);
     }, [])
     //
-    const currentStep = useMemo(()=>{
+    const currentStep = useMemo(() => {
         return stepArray[step]
-    },[step,stepArray])
+    }, [step, stepArray])
 
     const provideValue = useMemo(() => {
         return {
@@ -56,11 +52,11 @@ export function ShareSteps(props: PropsWithChildren<ShareStepsProps>) {
             nextStep,
             currentStep
         }
-    }, [nextStep,preStep,currentStep])
+    }, [nextStep, preStep, currentStep])
     //
     useEffect(() => {
         setStepArray(Array.from(stepMapRef.current.keys()));
-    }, [Array.from(stepMapRef.current.keys()).join(',')]);
+    }, []);
     //
     const stepsNode = useMemo(() => {
         return <div
@@ -73,7 +69,7 @@ export function ShareSteps(props: PropsWithChildren<ShareStepsProps>) {
                 })}
             </Steps>
         </div>
-    }, [stepArray,step])
+    }, [stepArray, step])
     //
     const descriptionNode = useMemo(() => {
         return <div className='description-container'>
@@ -90,7 +86,7 @@ export function ShareSteps(props: PropsWithChildren<ShareStepsProps>) {
             })
             }
         </div>
-    }, [stepArray,step])
+    }, [stepArray, step])
     //
     const contentNode = useMemo(() => {
         return <div className="content-container">
@@ -119,12 +115,10 @@ export function ShareSteps(props: PropsWithChildren<ShareStepsProps>) {
     }, [stepArray, step])
 
     return <div className='share-steps'>
-        <shareStoreContext.Provider value={shareStore}>
-            <shareStepsContext.Provider value={provideValue}>
-                {stepsNode}
-                {descriptionNode}
-                {contentNode}
-            </shareStepsContext.Provider>
-        </shareStoreContext.Provider>
+        <shareStepsContext.Provider value={provideValue}>
+            {stepsNode}
+            {descriptionNode}
+            {contentNode}
+        </shareStepsContext.Provider>
     </div>
 }

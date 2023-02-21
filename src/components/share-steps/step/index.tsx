@@ -1,17 +1,18 @@
 import { Steps } from "@ones-design/core";
-import { ComponentProps, PropsWithChildren, ReactNode, useEffect } from "react";
-import { useShareStepsContext } from "../context/share-steps";
+import { ComponentProps, ReactElement, ReactNode, useEffect } from "react";
+import { useShareStepsContext } from "../context/steps";
 
 export interface ShareStepProps {
     name: string,
     description: ReactNode,
     stepProps?: ComponentProps<typeof Steps.Step>,
+    children: ReactElement
 }
 
-export function ShareStep(props: PropsWithChildren<ShareStepProps>) {
-    
+export function ShareStep(props: ShareStepProps) {
+
     const { registerStep, unRegisterStep } = useShareStepsContext()
-    
+
     useEffect(() => {
         if (!(props.name)) return;
         const name = (props.name)!.toString();
@@ -21,7 +22,10 @@ export function ShareStep(props: PropsWithChildren<ShareStepProps>) {
         };
     }, [])
 
-    return <div className="share-step">
-        {props.children}
-    </div>
+    // only render if is active
+    // if (props.name !== currentStep) {
+    //     return null
+    // }
+    
+    return props.children
 }

@@ -1,28 +1,23 @@
-import { useShareStepsContext } from '../context/share-steps';
-import { useShareStoreContext } from '../context/share-store'
+import { useRef } from 'react';
+import { useShareStepsContext } from '../context'
+import { ShareStepsStore } from '../store';
+
 
 export function useShareStore() {
-    const { store } = useShareStoreContext()
-    return store
+    const store = useRef(new ShareStepsStore());
+    return store.current
 }
 
-export function useStoreActions() {
+export function useStepActions() {
+    const { preStep, nextStep } = useShareStepsContext();
+    const { savaData, retrieveData, deleteData ,clearData } = useShareStore();
+    return { preStep, nextStep, savaData, retrieveData, deleteData,clearData }
+}
+
+export function useStepData(name?: string) {
     const store = useShareStore();
-    const { savaData, retrieveData, deleteData } = store
-    return {
-        savaData,
-        retrieveData,
-        deleteData
-    }
-}
-
-export function useStepActions(){
-    const { preStep,nextStep} = useShareStepsContext()
-    return  { preStep,nextStep}
-}
-
-export function useStepData(name?: string){
-    const store = useShareStore();
+    console.log(store);
+    
     const { currentStep } = useShareStepsContext();
     return store.retrieveData(name ?? currentStep);
 }

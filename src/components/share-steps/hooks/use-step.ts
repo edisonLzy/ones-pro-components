@@ -1,39 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 interface Options {
   initialStep: number;
   totalSteps: number;
-  onStepChange?: (step: number) => void;
 }
 
-export function useStep({ initialStep, totalSteps, onStepChange }: Options) {
-  const [internalStep, setInternalStep] = useState(initialStep);
-  const nextStep = () => {
-    if (internalStep > totalSteps - 2) return;
-    setInternalStep(internalStep + 1);
-  };
-  const preStep = () => {
-    if (internalStep < 1) return;
-    setInternalStep(internalStep - 1);
-  };
-  const isLastStep = () => {
-    return internalStep === totalSteps - 1;
-  };
-  const isFirstStep = () => {
-    return internalStep === 0;
-  };
+export function useStep({ initialStep, totalSteps }: Options) {
   //
-  useEffect(() => {
-    onStepChange?.(internalStep);
-  }, [internalStep, onStepChange]);
+  const [internalStep, setInternalStep] = useState(initialStep);
+  //
+  const nextStep = useCallback(() => {
+    setInternalStep((step)=>{
+        if(step > totalSteps - 2) return step
+        return step + 1
+    });
+  },[totalSteps]);
+
+  const preStep = useCallback(() => {
+    setInternalStep(step=>{
+      if (step < 1) return step;
+      return step - 1;
+    });
+  },[]);
   //
   return [
     internalStep,
     {
       nextStep,
       preStep,
-      isLastStep,
-      isFirstStep,
     },
   ] as const;
 }
