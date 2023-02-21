@@ -1,0 +1,14 @@
+.step {
+    display: none;
+    &-active {
+        display: block;
+    }
+}
+.description-container {
+    .description {
+        display: none;
+        &-active {
+            display: block;
+        }
+    }
+}
