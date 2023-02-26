@@ -4,5 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  logLevel:'silent'
+  build: {
+    rollupOptions: {
+      external: ['rc-util/es/hooks/useMobile']
+    }
+  }
 })

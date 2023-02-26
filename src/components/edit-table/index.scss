@@ -1,0 +1,9 @@
+// TODO 删除 form-item 的margin
+.editable-table {
+    .ones-form-item-control {
+        min-height: unset;
+    }
+    .ones-form-item-control-input{
+        margin-bottom: 0;
+    }
+}
