@@ -15,18 +15,18 @@ export type RawColumns = TableProps['columns'][number];
 export type RenderFn = (namePath: (string | number)[], index: number) => ReactNode
 
 export type EnhanceProps = {
-  dataIndex: string
-  editable: boolean
-  field: {
-    //
+  dataIndex: string,
+  //
+  autoMerge?: boolean
+  //
+  editable?: boolean
+  field?: {
     formItemProps?: Omit<FormItemProps, 'name' | 'initialValue'>
-    //
     control: ReactNode | RenderFn
   },
-  autoMerge?: boolean
 }
 
-export type EditTableColumn = (RawColumns & EnhanceProps) | RawColumns;
+export type EditTableColumn = RawColumns & EnhanceProps;
 
 export interface EditableCellProps<RecordType extends Record<string, unknown> = any> extends EnhanceProps {
   title: React.ReactNode;

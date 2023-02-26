@@ -45,10 +45,10 @@ const columns: EditTableColumn[] = [{
   width: 200,
 },
 {
-  title: 'merged',
+  title: 'city',
   dataIndex: 'city',
   width: 200,
-  autoMerge: true
+  autoMerge: true,
 }
 ];
 
@@ -63,6 +63,22 @@ const dataSource = [
   },
   {
     id: '13',
+    key: '0',
+    name: 'Edward King 2',
+    age: '32',
+    address: 'London, Park Lane no. 0',
+    city: 'sichuan'
+  },
+  {
+    id: '132',
+    key: '0',
+    name: 'Edward King 2',
+    age: '32',
+    address: 'London, Park Lane no. 0',
+    city: 'sichuan'
+  },
+  {
+    id: '133',
     key: '0',
     name: 'Edward King 2',
     age: '32',
