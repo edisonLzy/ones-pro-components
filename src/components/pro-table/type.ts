@@ -1,6 +1,6 @@
-import { Table, FormInstance, Form } from '@ones-design/core'
-import { ComponentProps, ComponentType, ReactNode } from 'react'
-
+import { FormInstance, Form } from '@ones-design/core'
+import { ComponentProps, ReactNode } from 'react'
+import Table from '@ones-design/table'
 
 type RequireKeys<T, K extends keyof T> = {
   [P in K]-?: T[P]
@@ -22,7 +22,6 @@ export type RawColumns = TableProps['columns'][number];
 export type RenderFn = (namePath: NamePath[] ,parentPath: NamePath) => ReactNode
 
 export type EnhanceProps = {
-  dataIndex: string,
   //
   autoMerge?: AutoMerge
   //
@@ -33,7 +32,7 @@ export type EnhanceProps = {
   },
 }
 
-export type EditTableColumn = RawColumns & EnhanceProps;
+export type EditTableColumn = RequireKeys<RawColumns & EnhanceProps,'code'>;
 
 export interface EditableCellProps<RecordType extends Record<string, unknown> = any> extends EnhanceProps {
   title: React.ReactNode;

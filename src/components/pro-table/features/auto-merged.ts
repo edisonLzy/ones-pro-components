@@ -6,19 +6,19 @@ export function supportAutoMerge(column: EditTableColumn, dataSource: Record<str
         return column
     }
     //
-    const { onCell: originCell, dataIndex } = column;
+    const { getCellProps: originGetCellProps, code } = column;
     //
-    const dependency = typeof column.autoMerge === 'boolean' ? dataIndex : column.autoMerge.dependency;
+    const dependency = typeof column.autoMerge === 'boolean' ? code : column.autoMerge.dependency;
     //
-    const onCell = (row: Record<string, unknown>, index: number) => {
-        const temp = originCell?.(row, index) ?? {};
+    const getCellProps = (_: unknown ,row: Record<string, unknown>, index: number) => {
+        const temp = originGetCellProps?.(_, row, index) ?? {};
         // 
         const rowIndex = dataSource.findIndex(d => d === row);
         const value = row[dependency];
         //
         let rowSpan = 1;
         let className= temp.className ?? '';
-
+        //
         if (rowIndex > 0 && value === dataSource[rowIndex - 1][dependency]) {
             rowSpan = 0
         } else {
@@ -37,6 +37,6 @@ export function supportAutoMerge(column: EditTableColumn, dataSource: Record<str
     }
     return {
         ...column,
-        onCell: onCell
+        getCellProps: getCellProps
     }
 }

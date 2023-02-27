@@ -9,6 +9,7 @@ specifiers:
   '@types/react-window': ^1.8.5
   '@vitejs/plugin-react': ^3.1.0
   ahooks: ^3.7.4
+  ali-react-table: ^2.6.1
   classnames: ^2.3.2
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -22,6 +23,7 @@ dependencies:
   '@ones-design/icons': 2.26.0_react@18.2.0
   '@ones-design/table': 0.6.0_2byqu35ode7whv4igkyhyijgdy
   ahooks: 3.7.4_react@18.2.0
+  ali-react-table: 2.6.1_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0

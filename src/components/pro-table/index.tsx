@@ -1,9 +1,8 @@
-import { Form, Table } from '@ones-design/core'
-import { useEffect } from 'react'
+import { Form } from '@ones-design/core'
 import { EditTableProps } from './type'
-import { useVirtualList } from 'ahooks'
-import './index.scss';
 import { useColumns } from './hooks/use-columns';
+import VirtualTable from '@ones-design/table'
+import './index.scss';
 
 export * from './type'
 
@@ -16,10 +15,9 @@ export function ProTable<Data>({ columns, dataSource, form, ...restProps }: Edit
         form={internalForm}
         scrollToFirstError
     >
-        <Table
+        <VirtualTable
             {...restProps}
             className='pro-table'
-            scroll={{ y: 500 }}
             // 无法获取 columnType
             columns={finalColumns as any[]}
             dataSource={dataSource}

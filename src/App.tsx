@@ -1,13 +1,16 @@
 import './App.css'
 import { Button, Form, Input, Select } from '@ones-design/core'
 import { ProTable } from './components/pro-table'
+import VirtualTable from '@ones-design/table'
 import { EditTableColumn } from './components/pro-table/type';
 import { getDataSource } from './data';
 
 
-const columns: EditTableColumn[] = [{
+const columns: EditTableColumn[] = [
+  {
   title: 'name',
-  dataIndex: 'name',
+  code: 'name',
+  name: 'name',
   width: 200,
   editable: true,
   field: {
@@ -21,7 +24,8 @@ const columns: EditTableColumn[] = [{
 },
 {
   title: 'age',
-  dataIndex: 'age',
+  code: 'age',
+  name: 'age',
   width: 200,
   editable: true,
   field: {
@@ -30,14 +34,15 @@ const columns: EditTableColumn[] = [{
 },
 {
   title: '操作',
-  dataIndex: 'operation',
+  code: 'operation',
+  name: 'operation',
   width: 200,
   editable: true,
+  autoMerge: {
+    dependency: 'age'
+  },
   field: {
     control: <Select
-      dropdownStyle={{
-        zIndex: 999
-      }}
       options={
         [
           {
@@ -51,17 +56,15 @@ const columns: EditTableColumn[] = [{
         ]
       } />
   },
-  // autoMerge: {
-  //   dependency: 'age'
-  // }
 },
 {
   title: 'city',
-  dataIndex: 'city',
+  code: 'city',
   width: 200,
-  // autoMerge: {
-  //   dependency: 'age'
-  // },
+  name: "city",
+  autoMerge: {
+    dependency: 'age'
+  },
   editable: true,
   field: {
     control: (namePath, parentPath) => {
@@ -85,16 +88,21 @@ const columns: EditTableColumn[] = [{
 ];
 
 
+const dataSource = getDataSource(1000);
+
 function App() {
+  //
   const [form] = Form.useForm()
-  
+  //
   return (
     <div className="App">
       <ProTable
         form={form}
-        dataSource={getDataSource(100) as any[]}
+        bordered={false}
+        dataSource={dataSource}
         columns={columns}
         rowKey='id'
+        height={300}
       />
       <Button onClick={async () => {
         const values = form.validateFields()

@@ -54,12 +54,11 @@ export function getDataSource(len: number) {
         city: 'beijing'
     }
 
-    const tempArr = arr.fill(0).map(r => {
+    const tempArr = arr.fill(0).map((r,idx) => {
         return {
             ...temp,
             id: Math.random().toString(36).slice(2)
         }
     })
-    dataSource.concat(tempArr)
     return dataSource.concat(tempArr)
 }
