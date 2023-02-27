@@ -1,12 +1,9 @@
 import './App.css'
-import { Button, Form, Input } from '@ones-design/core'
-import { EditTable } from './components/edit-table'
-import { EditTableColumn } from './components/edit-table/type';
+import { Button, Form, Input, Select } from '@ones-design/core'
+import { ProTable } from './components/pro-table'
+import { EditTableColumn } from './components/pro-table/type';
+import { getDataSource } from './data';
 
-function EInput() {
-  console.log('render');
-  return <Input></Input>
-}
 
 const columns: EditTableColumn[] = [{
   title: 'name',
@@ -28,81 +25,74 @@ const columns: EditTableColumn[] = [{
   width: 200,
   editable: true,
   field: {
-    control: (namePath) => {
-      return <Form.Item shouldUpdate>
-        {(form) => {
-          return <Form.Item name={namePath}>
-            <Input />
-          </Form.Item>
-        }}
-      </Form.Item>
-    },
+    control: <Input />,
   },
 },
 {
-  title: 'address',
-  dataIndex: 'address',
+  title: '操作',
+  dataIndex: 'operation',
   width: 200,
+  editable: true,
+  field: {
+    control: <Select
+      dropdownStyle={{
+        zIndex: 999
+      }}
+      options={
+        [
+          {
+            label: '更新',
+            value: 'update'
+          },
+          {
+            label: '查看',
+            value: 'view'
+          },
+        ]
+      } />
+  },
+  // autoMerge: {
+  //   dependency: 'age'
+  // }
 },
 {
   title: 'city',
   dataIndex: 'city',
   width: 200,
-  autoMerge: true,
-}
+  // autoMerge: {
+  //   dependency: 'age'
+  // },
+  editable: true,
+  field: {
+    control: (namePath, parentPath) => {
+      return <Form.Item shouldUpdate={(pre: any, next: any) => {
+        return pre[parentPath].operation !== next[parentPath].operation
+      }}>
+        {(form) => {
+          const operation = form.getFieldValue([parentPath, 'operation']);
+          const value = form.getFieldValue(namePath)
+          if (operation === 'view') {
+            return <span>{value}</span>
+          }
+          return <Form.Item name={namePath}>
+            <Input placeholder='请编辑' />
+          </Form.Item>
+        }}
+      </Form.Item>
+    }
+  }
+},
 ];
 
-const dataSource = [
-  {
-    id: '123',
-    key: '0',
-    name: 'Edward King 0',
-    age: '32',
-    address: 'London, Park Lane no. 0',
-    city: 'sichuan'
-  },
-  {
-    id: '13',
-    key: '0',
-    name: 'Edward King 2',
-    age: '32',
-    address: 'London, Park Lane no. 0',
-    city: 'sichuan'
-  },
-  {
-    id: '132',
-    key: '0',
-    name: 'Edward King 2',
-    age: '32',
-    address: 'London, Park Lane no. 0',
-    city: 'sichuan'
-  },
-  {
-    id: '133',
-    key: '0',
-    name: 'Edward King 2',
-    age: '32',
-    address: 'London, Park Lane no. 0',
-    city: 'sichuan'
-  },
-  {
-    id: '456',
-    key: '2',
-    name: 'Edward King 3',
-    age: '32',
-    address: 'London, Park Lane no. 1',
-    city: 'beijing'
-  }]
 
 function App() {
-
   const [form] = Form.useForm()
-
+  
   return (
     <div className="App">
-      <EditTable
+      <ProTable
         form={form}
-        dataSource={dataSource as any[]}
+        dataSource={getDataSource(100) as any[]}
         columns={columns}
         rowKey='id'
       />

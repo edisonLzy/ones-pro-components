@@ -10,18 +10,25 @@ type TableProps = RequireKeys<ComponentProps<typeof Table>, 'columns' | 'dataSou
 
 type FormItemProps = ComponentProps<typeof Form.Item>
 
+export type NamePath = string | number
+
+export type AutoMerge = boolean | {
+  // 依赖的dataIndex, 当dependency相同时合并row 
+  dependency: string
+}
+
 export type RawColumns = TableProps['columns'][number];
 
-export type RenderFn = (namePath: (string | number)[], index: number) => ReactNode
+export type RenderFn = (namePath: NamePath[] ,parentPath: NamePath) => ReactNode
 
 export type EnhanceProps = {
   dataIndex: string,
   //
-  autoMerge?: boolean
+  autoMerge?: AutoMerge
   //
   editable?: boolean
   field?: {
-    formItemProps?: Omit<FormItemProps, 'name' | 'initialValue'>
+    formItemProps?: Omit<FormItemProps, 'name' | 'initialValue' | 'label'>
     control: ReactNode | RenderFn
   },
 }
