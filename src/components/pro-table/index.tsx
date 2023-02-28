@@ -23,4 +23,5 @@ export function ProTable<Data>({ columns, dataSource, form, ...restProps }: Edit
             dataSource={dataSource}
         />
     </Form>
+    
 }
