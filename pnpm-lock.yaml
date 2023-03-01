@@ -6,10 +6,14 @@ specifiers:
   '@ones-design/table': ^0.6.0
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
+  '@types/react-window': ^1.8.5
   '@vitejs/plugin-react': ^3.1.0
+  ahooks: ^3.7.4
+  ali-react-table: ^2.6.1
   classnames: ^2.3.2
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-window: ^1.8.8
   sass: ^1.58.3
   typescript: ^4.9.3
   vite: ^4.1.0
@@ -18,14 +22,18 @@ dependencies:
   '@ones-design/core': 2.17.1_uuypmavx3blgry3ab2mgd3h47y
   '@ones-design/icons': 2.26.0_react@18.2.0
   '@ones-design/table': 0.6.0_2byqu35ode7whv4igkyhyijgdy
+  ahooks: 3.7.4_react@18.2.0
+  ali-react-table: 2.6.1_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-window: 1.8.8_biqbaboplfbrettd7655fr4n2y
   sass: 1.58.3
 
 devDependencies:
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
+  '@types/react-window': 1.8.5
   '@vitejs/plugin-react': 3.1.0_vite@4.1.1
   typescript: 4.9.5
   vite: 4.1.1_sass@1.58.3
@@ -858,6 +866,12 @@ packages:
     dependencies:
       '@types/react': 18.0.28
     dev: false
+
+  /@types/react-window/1.8.5:
+    resolution: {integrity: sha512-V9q3CvhC9Jk9bWBOysPGaWy/Z0lxYcTXLtLipkt2cnRj1JOSFNF7wqGpkScSXMgBwC+fnVRg/7shwgddBG5ICw==}
+    dependencies:
+      '@types/react': 18.0.28
+    dev: true
 
   /@types/react/18.0.28:
     resolution: {integrity: sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==}
@@ -2105,6 +2119,19 @@ packages:
       react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
       react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
     dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-window/1.8.8_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-D4IiBeRtGXziZ1n0XklnFGu7h9gU684zepqyKzgPNzrsrk7xOCxni+TCckjg2Nr/DiaEEGVVmnhYSlT2rB47dQ==}
+    engines: {node: '>8.0.0'}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.20.13
+      memoize-one: 5.2.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false

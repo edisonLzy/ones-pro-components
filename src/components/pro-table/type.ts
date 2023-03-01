@@ -1,6 +1,6 @@
-import { Table, FormInstance, Form } from '@ones-design/core'
-import { ComponentProps, ComponentType, ReactNode } from 'react'
-
+import { FormInstance, Form } from '@ones-design/core'
+import { ComponentProps, ReactNode } from 'react'
+import Table from '@ones-design/table'
 
 type RequireKeys<T, K extends keyof T> = {
   [P in K]-?: T[P]
@@ -10,23 +10,29 @@ type TableProps = RequireKeys<ComponentProps<typeof Table>, 'columns' | 'dataSou
 
 type FormItemProps = ComponentProps<typeof Form.Item>
 
+export type NamePath = string | number
+
+export type AutoMerge = boolean | {
+  // 依赖的dataIndex, 当dependency相同时合并row 
+  dependency: string
+}
+
 export type RawColumns = TableProps['columns'][number];
 
-export type RenderFn = (namePath: (string | number)[], index: number) => ReactNode
+export type RenderFn = (namePath: NamePath[] ,parentPath: NamePath) => ReactNode
 
 export type EnhanceProps = {
-  dataIndex: string,
   //
-  autoMerge?: boolean
+  autoMerge?: AutoMerge
   //
   editable?: boolean
   field?: {
-    formItemProps?: Omit<FormItemProps, 'name' | 'initialValue'>
+    formItemProps?: Omit<FormItemProps, 'name' | 'initialValue' | 'label'>
     control: ReactNode | RenderFn
   },
 }
 
-export type EditTableColumn = RawColumns & EnhanceProps;
+export type EditTableColumn = RequireKeys<RawColumns & EnhanceProps,'code'>;
 
 export interface EditableCellProps<RecordType extends Record<string, unknown> = any> extends EnhanceProps {
   title: React.ReactNode;
